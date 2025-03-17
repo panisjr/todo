@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { GoPlus } from "react-icons/go";
 import Swal from "sweetalert2";
 import { CiTrash } from "react-icons/ci";
@@ -56,7 +56,16 @@ const Todolist = () => {
     "Nov.",
     "Dec.",
   ];
+  useEffect(() => {
+    // const time = new Date().getTime();
+    // const timestamp_sec = time / 1000;
+    const dt = new Date().getUTCHours();
+    const mt = new Date().getUTCMinutes();
+    const mi = new Date().getUTCMilliseconds();
 
+    // const formatted_dt = dt.strftime("%Y-%m-%d %H:%M:%S UTC");
+    console.log(dt, mt, mi);
+  });
   return (
     <>
       <div className="flex items-center justify-center bg-gradient-to-t from-slate-950 to-slate-800 w-screen h-screen ">
@@ -87,7 +96,7 @@ const Todolist = () => {
                   >
                     <input type="checkbox" />
                     <div className="text-[11px] mx-2 w-full flex flex-col">
-                      <p >{list.todo}</p>
+                      <p>{list.todo}</p>
                       <p className="ms-5">{list.description}</p>
                     </div>
                     <CiTrash className="text-2xl cursor-pointer hover:text-red-600" />
