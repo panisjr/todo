@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { GoPlus, GoPencil } from "react-icons/go";
 import { IoMdCheckmark, IoIosLogOut } from "react-icons/io";
 import { RxCross1 } from "react-icons/rx";
@@ -8,14 +8,13 @@ import { useNavigate } from "react-router-dom";
 
 let id = 0;
 const Todolist = () => {
-  const [query, setQuery] = useState("");
   const [addTodo, setAddTodo] = useState("");
   const [description, setDescription] = useState("");
   const [ID, setID] = useState(0);
   const [lists, setLists] = useState([]);
   const [selected, setSelected] = useState(false);
-  const [searchInput, setSearchInput] = useState("");
-  const [filteredResults, setFilteredResults] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredItems, setFilteredItems] = useState([]);
   const navigate = useNavigate();
   const Toast = Swal.mixin({
     toast: true,
@@ -104,12 +103,25 @@ const Todolist = () => {
     setDescription("");
     setSelected(false);
   };
+  useEffect(() => {
+    setFilteredItems(lists);
+  }, [lists]);
+
   // Search function
-  const searchItems = (searchData) => {
-    const myList = [...lists];
-    setSearchInput(searchData);
-    const searched = myList.find((a) => a === searchInput);
-    setFilteredResults(searched);
+  const searchItems = (searchInput) => {
+    setSearchTerm(searchInput);
+    if (!searchInput.trim()) {
+      setFilteredItems(lists);
+    } else {
+      setFilteredItems(
+        lists.filter(
+          (item) =>
+            item.todo.toLowerCase().includes(searchInput.toLowerCase()) ||
+            item.description.toLowerCase().includes(searchInput.toLowerCase())
+        )
+      );
+    }
+    
   };
   // To get the word type of Month instead of numbers
   const months = [
@@ -176,50 +188,64 @@ const Todolist = () => {
 
             {/* Content */}
             {lists.length > 0 ? (
-              <div className="flex flex-col items-start my-5 p-2 rounded-md overflow-y-auto snap-center h-64">
-                {lists.map((list, index) => (
-                  <>
-                    <div className="pb-3">
-                      <input
-                        className="h-8 p-3 w-[250px] text-sm peer border-none rounded-sm text-black"
-                        onChange={(e) => searchItems(e.target.value)}
-                      />
-                    </div>
-                    <div
-                      key={index}
-                      className="flex items-center text-sm border-[1px] border-white rounded-sm mb-2 w-full px-5 py-2"
-                    >
-                      <div className="text-sm w-full flex flex-row space-x-5">
-                        <input type="checkbox" className="peer" />
-                        <div className="peer-checked:line-through peer-checked:text-green-500">
-                          <p className="font-bold">{list.todo}</p>
-                          <div>
-                            <p>{list.description}</p>
+              <>
+                <div className="flex flex-col items-start my-5 p-2 rounded-md overflow-y-auto snap-center h-64">
+                  <div className="pb-3 w-full">
+                    <input
+                      className="h-8 p-3 text-sm peer w-full border border-gray-300 rounded-sm text-black focus:outline-none focus:ring-2 focus:ring-blue-400"
+                      value={searchTerm}
+                      onChange={(e) => searchItems(e.target.value)}
+                      placeholder="Search todo..."
+                    />
+                  </div>
+                  {filteredItems.length > 0 ? (
+                    filteredItems.map((item) => (
+                      <>
+                        <div
+                          key={item.id}
+                          className="flex items-center text-sm border-[1px] border-white rounded-sm mb-2 w-full px-5 py-2"
+                        >
+                          <div className="text-sm w-full flex flex-row space-x-5">
+                            <input type="checkbox" className="peer" />
+                            <div className="peer-checked:line-through peer-checked:text-green-500">
+                              <p className="font-bold">{item.todo}</p>
+                              <div>
+                                <p>{item.description}</p>
+                              </div>
+                            </div>
                           </div>
+                          <GoPencil
+                            className="text-2xl cursor-pointer hover:text-yellow-500 m-2"
+                            onClick={() => {
+                              selectedTodo(item);
+                            }}
+                          />
+                          <CiTrash
+                            className="text-2xl cursor-pointer hover:text-red-600"
+                            onClick={() => {
+                              deleteTodo(item.id);
+                            }}
+                          />
                         </div>
-                      </div>
-                      <GoPencil
-                        className="text-2xl cursor-pointer hover:text-yellow-500 m-2"
-                        onClick={() => {
-                          selectedTodo(list);
-                        }}
-                      />
-                      <CiTrash
-                        className="text-2xl cursor-pointer hover:text-red-600"
-                        onClick={() => {
-                          deleteTodo(list.id);
-                        }}
-                      />
+                      </>
+                    ))
+                  ) : (
+                    <div className="flex items-center justify-center w-full">
+
+                      <i>No results found</i>
                     </div>
-                  </>
-                ))}
-              </div>
+                  )}
+                </div>
+              </>
             ) : (
-              <div className="flex flex-col items-center justify-center py-10">
-                <p>Time to chill! You have no todos.</p>
-                <img className="w-20" src="/latte-art.png" alt="Latte" />
-              </div>
+              <>
+                <div className="flex flex-col items-center justify-center py-10">
+                  <i className="pb-5">Time to chill! You have no todos.</i>
+                  <img className="w-20" src="/latte-art.png" alt="Latte" />
+                </div>
+              </>
             )}
+
             {/* Add Todo List */}
             <div className="flex flex-col items-center gap-2 mt-2">
               <div className="w-full flex gap-2">

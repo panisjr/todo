@@ -49,7 +49,7 @@ const Signin = ({ users }) => {
           <div className="text-white ">
             <div className="flex items-center justify-center mb-10">
               <div className="pt-4">
-                <p className="text-4xl">Sign In</p>
+                <p className="text-4xl font-bold">Sign In</p>
               </div>
             </div>
             <div className="flex flex-col gap-5 py-5">
