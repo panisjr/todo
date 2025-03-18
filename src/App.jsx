@@ -1,11 +1,17 @@
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
-import Todolist from "./components/todolist";
+import Signup from "./components/signup";
+import Signin from "./components/signin";
 
 function App() {
   return (
-    <>
-      <Todolist/>
-    </>
+    <BrowserRouter>
+      <Routes>
+          <Route path="/" element={<Signup/>}/>
+          <Route path="todolist" element={<Signup/>}/>
+          <Route path="signUp" element={<Signin/>}/>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
