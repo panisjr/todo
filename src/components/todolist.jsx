@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { GoPlus, GoPencil } from "react-icons/go";
-import { IoMdCheckmark } from "react-icons/io";
+import { IoMdCheckmark, IoIosLogOut } from "react-icons/io";
+import { RxCross1 } from "react-icons/rx";
 import Swal from "sweetalert2";
 import { CiTrash } from "react-icons/ci";
-
+import { useNavigate } from "react-router-dom";
 
 let id = 0;
 const Todolist = () => {
@@ -15,6 +16,7 @@ const Todolist = () => {
   const [selected, setSelected] = useState(false);
   const [searchInput, setSearchInput] = useState("");
   const [filteredResults, setFilteredResults] = useState([]);
+  const navigate = useNavigate();
   const Toast = Swal.mixin({
     toast: true,
     position: "top-end",
@@ -68,6 +70,7 @@ const Todolist = () => {
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
         confirmButtonText: "Yes, delete it!",
+        draggable: true,
       }).then((result) => {
         if (result.isConfirmed) {
           setLists(myLists.filter((a) => a.id !== id));
@@ -95,6 +98,12 @@ const Todolist = () => {
     setDescription("");
     setSelected(false);
   };
+  // Cancel Update
+  const cancelUpdate = () => {
+    setAddTodo("");
+    setDescription("");
+    setSelected(false);
+  };
   // Search function
   const searchItems = (searchData) => {
     const myList = [...lists];
@@ -102,7 +111,6 @@ const Todolist = () => {
     const searched = myList.find((a) => a === searchInput);
     setFilteredResults(searched);
   };
-
   // To get the word type of Month instead of numbers
   const months = [
     "January",
@@ -125,12 +133,32 @@ const Todolist = () => {
     setDescription(list.description);
     setID(list.id);
   };
-
+  const logout = () => {
+    Swal.fire({
+      title: "Are you sure you want to logout?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: `Yes ✔`,
+      draggable: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        navigate("/");
+      }
+    });
+  };
   return (
     <>
       <div className="flex items-center justify-center bg-gradient-to-t from-slate-950 to-slate-800 w-screen h-screen">
         <div className=" flex items-center justify-center bg-gradient-to-t from-slate-900 to-slate-700 p-10 border-2 border-slate-600 rounded-md hover:shadow-lg hover:shadow-slate-400 hover:-x-6 duration-500">
           <div className="text-white ">
+            <div className="flex items-end justify-end w-full">
+              <IoIosLogOut
+                className="text-2xl hover:text-red-500 cursor-pointer"
+                onClick={() => logout()}
+              />
+            </div>
             <div className="flex items-center justify-between pb-3">
               <div className="pt-4">
                 <p className="text-4xl">Todo List</p>
@@ -156,13 +184,6 @@ const Todolist = () => {
                         className="h-8 p-3 w-[250px] text-sm peer border-none rounded-sm text-black"
                         onChange={(e) => searchItems(e.target.value)}
                       />
-                    </div>
-                    <div>
-                      {names
-                        .filter((name) => name.includes("J"))
-                        .map((filteredName) => (
-                          <li>{filteredName}</li>
-                        ))}
                     </div>
                     <div
                       key={index}
@@ -217,16 +238,22 @@ const Todolist = () => {
                         onChange={(e) => setAddTodo(e.target.value)}
                       />
 
-                      <span className="duration-300 pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-[#1a2437] p-0.5 text-xs text-white transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
+                      <span className="duration-300 pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-[#1a2437] p-0.5 text-sm text-white transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
                         Title
                       </span>
                     </label>
                     <button
-                      className="text-sm flex items-center justify-center gap-2 bg-slate-900 p-2 rounded-md hover:bg-green-500 duration-300"
+                      className="text-sm flex items-center justify-center gap-2 bg-green-500 p-2 rounded-md hover:bg-green-600 duration-300"
                       onClick={() => update(addTodo, description)}
                     >
                       Update
                       <IoMdCheckmark />
+                    </button>
+                    <button
+                      className="text-sm flex items-center justify-center bg-slate-900 p-2 gap-2 hover:bg-red-500 duration-300 rounded-md"
+                      onClick={() => cancelUpdate()}
+                    >
+                      Cancel <RxCross1 />
                     </button>
                   </>
                 ) : (
@@ -253,7 +280,7 @@ const Todolist = () => {
                       onClick={() => submit(addTodo, description)}
                     >
                       Add
-                      <GoPlus />
+                      <GoPlus className="text-2xl" />
                     </button>
                   </>
                 )}
