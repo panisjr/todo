@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { GoPlus } from "react-icons/go";
+import React, { useState } from "react";
+import { GoPlus, GoPencil } from "react-icons/go";
+import { IoMdCheckmark } from "react-icons/io";
 import Swal from "sweetalert2";
 import { CiTrash } from "react-icons/ci";
 
 const Todolist = () => {
+  let i = 0;
   const [addTodo, setAddTodo] = useState("");
   const [description, setDescription] = useState("");
   const [lists, setLists] = useState([]);
+  const [selected, setSelected] = useState(false);
   const Toast = Swal.mixin({
     toast: true,
     position: "top-end",
@@ -18,12 +21,13 @@ const Todolist = () => {
       toast.onmouseleave = Swal.resumeTimer;
     },
   });
-
+  // Submit Todo List
   const submit = (addTodo, description) => {
     if (addTodo && description) {
       setLists([
         ...lists,
         {
+          id: i++,
           todo: addTodo,
           description: description,
         },
@@ -41,31 +45,40 @@ const Todolist = () => {
       });
     }
   };
-
+  // Update Todo List
+  const update = (updateTodo, updateDescription) => {
+    const myList = [...lists];
+    const updateList = myList.find((a) => a.todo === updateTodo);
+    updateList.todo = updateTodo;
+    updateList.description = updateDescription;
+    Toast.fire({
+      icon: "success",
+      title: "Update successfully!",
+    });
+    // setAddTodo("");
+    // setDescription("");
+  };
+  // To get the word type of Month instead of numbers
   const months = [
     "January",
-    "Feb.",
-    "Mar.",
-    "Apr.",
+    "February",
+    "March",
+    "April",
     "May",
     "June",
-    "Jul.",
-    "Aug.",
-    "Sept.",
-    "Oct.",
-    "Nov.",
-    "Dec.",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
   ];
-  useEffect(() => {
-    // const time = new Date().getTime();
-    // const timestamp_sec = time / 1000;
-    const dt = new Date().getUTCHours();
-    const mt = new Date().getUTCMinutes();
-    const mi = new Date().getUTCMilliseconds();
 
-    // const formatted_dt = dt.strftime("%Y-%m-%d %H:%M:%S UTC");
-    console.log(dt, mt, mi);
-  });
+  const selectedTodo = (list) => {
+    setSelected(true);
+    setAddTodo(list.todo);
+    setDescription(list.description);
+  };
   return (
     <>
       <div className="flex items-center justify-center bg-gradient-to-t from-slate-950 to-slate-800 w-screen h-screen ">
@@ -99,7 +112,18 @@ const Todolist = () => {
                       <p>{list.todo}</p>
                       <p className="ms-5">{list.description}</p>
                     </div>
-                    <CiTrash className="text-2xl cursor-pointer hover:text-red-600" />
+                    <GoPencil
+                      className="text-2xl cursor-pointer hover:text-yellow-500 m-2"
+                      onClick={() => {
+                        selectedTodo(list);
+                      }}
+                    />
+                    <CiTrash
+                      className="text-2xl cursor-pointer hover:text-red-600"
+                      onClick={() => {
+                        setLists(lists.filter((a) => a.id !== list.id));
+                      }}
+                    />
                   </div>
                 ))}
               </div>
@@ -129,13 +153,23 @@ const Todolist = () => {
                     Title
                   </span>
                 </label>
-                <button
-                  className="text-sm flex items-center justify-center gap-2 bg-slate-900 p-2 rounded-md hover:bg-slate-950 duration-300"
-                  onClick={() => submit(addTodo, description)}
-                >
-                  Add
-                  <GoPlus />
-                </button>
+                {selected === true ? (
+                  <button
+                    className="text-sm flex items-center justify-center gap-2 bg-slate-900 p-2 rounded-md hover:bg-green-500 duration-300"
+                    onClick={() => update(addTodo, description)}
+                  >
+                    Update
+                    <IoMdCheckmark />
+                  </button>
+                ) : (
+                  <button
+                    className="text-sm flex items-center justify-center gap-2 bg-slate-900 p-2 rounded-md hover:bg-blue-950 duration-300"
+                    onClick={() => submit(addTodo, description)}
+                  >
+                    Add
+                    <GoPlus />
+                  </button>
+                )}
               </div>
               <textarea
                 type="text-area"
