@@ -16,6 +16,27 @@ const Todolist = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredItems, setFilteredItems] = useState([]);
   const navigate = useNavigate();
+  // To get the current Date and Time
+  const [time, setTime] = useState("");
+
+  useEffect(() => {
+    const updateTime = () => {
+      const today = new Date();
+      const locale = "en";
+
+      const formattedTime = today.toLocaleTimeString(locale, {
+        hour: "numeric",
+        hour12: true,
+        minute: "2-digit",
+        second: "2-digit",
+      });
+      setTime(formattedTime);
+    };
+
+    updateTime();
+    const interval = setInterval(updateTime, 1000);
+    return () => clearInterval(interval);
+  }, []);
   const Toast = Swal.mixin({
     toast: true,
     position: "top-end",
@@ -121,7 +142,6 @@ const Todolist = () => {
         )
       );
     }
-    
   };
   // To get the word type of Month instead of numbers
   const months = [
@@ -165,9 +185,17 @@ const Todolist = () => {
       <div className="flex items-center justify-center bg-gradient-to-t from-slate-950 to-slate-800 w-screen h-screen">
         <div className=" flex items-center justify-center bg-gradient-to-t from-slate-900 to-slate-700 p-10 border-2 border-slate-600 rounded-md hover:shadow-lg hover:shadow-slate-400 hover:-x-6 duration-500">
           <div className="text-white ">
-            <div className="flex items-end justify-end w-full">
+            <div className="flex items-start justify-between w-full">
+              <div className="text-sm ">
+                <p className="items-start justify-start text-cyan-300">
+                  {`${
+                    months[new Date().getMonth()]
+                  } ${new Date().getDate()}, ${new Date().getFullYear()}`}
+                </p>
+                <p>{time}</p>
+              </div>
               <IoIosLogOut
-                className="text-2xl hover:text-red-500 cursor-pointer"
+                className="text-2xl hover:text-red-500 cursor-pointer items-start"
                 onClick={() => logout()}
               />
             </div>
@@ -178,11 +206,6 @@ const Todolist = () => {
                   Get things done, one item at a time.
                 </p>
               </div>
-              <p className="text-sm items-start justify-start text-orange-300">
-                {`${
-                  months[new Date().getMonth()]
-                } ${new Date().getDate()}, ${new Date().getFullYear()}`}
-              </p>
             </div>
             <div className="border-[1px] border-b-slate-300 "></div>
 
@@ -231,7 +254,6 @@ const Todolist = () => {
                     ))
                   ) : (
                     <div className="flex items-center justify-center w-full">
-
                       <i>No results found</i>
                     </div>
                   )}

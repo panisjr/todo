@@ -8,6 +8,7 @@ const Signup = ({ users, setUsers }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [view, setView] = useState(false);
+
   const Toast = Swal.mixin({
     toast: true,
     position: "top-end",
