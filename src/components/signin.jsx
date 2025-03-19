@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import { CiUser, CiLock } from "react-icons/ci";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 let id = 0;
-const Signin = ({ users }) => {
+const Signin = ({ users , setID}) => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -32,6 +32,9 @@ const Signin = ({ users }) => {
         title: "Error: Make sure you have GoTyme account!",
       });
     } else {
+      const find = users.find((a) => a.username === username);
+      setID(find.id)
+      console.log("Found: ",find.id)
       navigate("/todolist");
     }
   };

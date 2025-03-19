@@ -4,6 +4,7 @@ import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 
+let id = 0;
 const Signup = ({ users, setUsers }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -22,13 +23,21 @@ const Signup = ({ users, setUsers }) => {
   });
   //   Sign Up
   const signUp = (username, password) => {
-    if (username === "" || password === "") {
+    const find = users.find((a) => a.username === username);
+    if (find) {
+      Toast.fire({
+        icon: "error",
+        title: "Error: Username already exist!",
+      });
+      console.log("Found user: ", find);
+    } else if (username === "" || password === "") {
       Toast.fire({
         icon: "error",
         title: "Error: Make sure you filled all the fields!",
       });
     } else if (username && password) {
       users.push({
+        id: id++,
         username: username,
         password: password,
       });

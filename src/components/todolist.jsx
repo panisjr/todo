@@ -7,11 +7,10 @@ import { CiTrash } from "react-icons/ci";
 import { useNavigate } from "react-router-dom";
 
 let id = 0;
-const Todolist = () => {
+const Todolist = ({ lists, setLists, users, userID }) => {
   const [addTodo, setAddTodo] = useState("");
   const [description, setDescription] = useState("");
   const [ID, setID] = useState(0);
-  const [lists, setLists] = useState([]);
   const [selected, setSelected] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredItems, setFilteredItems] = useState([]);
@@ -37,6 +36,7 @@ const Todolist = () => {
     const interval = setInterval(updateTime, 1000);
     return () => clearInterval(interval);
   }, []);
+
   const Toast = Swal.mixin({
     toast: true,
     position: "top-end",
@@ -55,15 +55,22 @@ const Todolist = () => {
         icon: "error",
         title: "Error: Make sure you filled all the fields!",
       });
+    } else if (users.id) {
+      Toast.fire({
+        icon: "error",
+        title: "Error: User ID is missing!",
+      });
     } else if (addTodo && description) {
       setLists([
         ...lists,
         {
           id: id++,
+          userID: userID,
           todo: addTodo,
           description: description,
         },
       ]);
+      console.log(lists);
       Toast.fire({
         icon: "success",
         title: "Added successfully!",
@@ -221,7 +228,17 @@ const Todolist = () => {
                       placeholder="Search todo..."
                     />
                   </div>
-                  {filteredItems.length > 0 ? (
+                  {lists.length > 0 &&
+                    lists.map((list) => {
+                      if (list.userID === userID) {
+                        return (
+                          <ul>
+                            <li>{list.todo}</li>
+                          </ul>
+                        );
+                      }
+                    })}
+                  {/* {filteredItems.length > 0 ? (
                     filteredItems.map((item) => (
                       <>
                         <div
@@ -231,6 +248,7 @@ const Todolist = () => {
                           <div className="text-sm w-full flex flex-row space-x-5">
                             <input type="checkbox" className="peer" />
                             <div className="peer-checked:line-through peer-checked:text-green-500">
+                              <p className="font-bold">{item.userID}</p>
                               <p className="font-bold">{item.todo}</p>
                               <div>
                                 <p>{item.description}</p>
@@ -256,7 +274,7 @@ const Todolist = () => {
                     <div className="flex items-center justify-center w-full">
                       <i>No results found</i>
                     </div>
-                  )}
+                  )} */}
                 </div>
               </>
             ) : (
