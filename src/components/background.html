@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vanda JS</title>
+  </head>
+  <body>
+    <div id="vanda-canvas"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.174.0/three.tsl.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanta/0.5.24/vanta.birds.min.js"></script>
+    <script type="text/javascript">
+        VANTA.BIRDS({
+            el: "#vanta-canvas",
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            scale: 1.00,
+            scaleMobile: 1.00,
+        })
+    </script>
+    
+  </body>
+</html>
