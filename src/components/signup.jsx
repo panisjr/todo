@@ -64,13 +64,13 @@ const Signup = ({ users, setUsers }) => {
   };
   return (
     <>
-      <div className=" flex items-center justify-center bg-gradient-to-t from-slate-950 to-slate-800 w-screen h-screen">
+      <div className="flex items-center justify-center bg-gradient-to-t from-slate-950 to-slate-800 w-screen h-screen p-4">
         <div className="flex items-center justify-center bg-gradient-to-t from-slate-900 to-slate-700 p-10 border-2 border-slate-600 rounded-md hover:shadow-lg hover:shadow-cyan-400 hover:-x-6 duration-500">
           <div className="bg" id="vanta"></div>
           <div className="text-white ">
             <div className="flex items-center justify-center mb-10">
               <div className="pt-4">
-                <p className="text-4xl font-bold">Sign Up</p>
+                <p className="text-[20px] font-bold">Sign Up</p>
               </div>
             </div>
             <div className="flex flex-col gap-5 py-5">

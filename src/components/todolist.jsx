@@ -228,53 +228,46 @@ const Todolist = ({ lists, setLists, users, userID }) => {
                       placeholder="Search todo..."
                     />
                   </div>
-                  {lists.length > 0 &&
-                    lists.map((list) => {
-                      if (list.userID === userID) {
+                  {filteredItems.length > 0 ? (
+                    filteredItems.map((item) => {
+                      if (item.userID === userID) {
                         return (
-                          <ul>
-                            <li>{list.todo}</li>
-                          </ul>
+                          <>
+                            <div
+                              key={item.id}
+                              className="flex items-center text-sm border-[1px] border-white rounded-sm mb-2 w-full px-5 py-2"
+                            >
+                              <div className="text-sm w-full flex flex-row space-x-5">
+                                <input type="checkbox" className="peer" />
+                                <div className="peer-checked:line-through peer-checked:text-green-500">
+                                  <p className="font-bold">{item.todo}</p>
+                                  <div>
+                                    <p>{item.description}</p>
+                                  </div>
+                                </div>
+                              </div>
+                              <GoPencil
+                                className="text-2xl cursor-pointer hover:text-yellow-500 m-2"
+                                onClick={() => {
+                                  selectedTodo(item);
+                                }}
+                              />
+                              <CiTrash
+                                className="text-2xl cursor-pointer hover:text-red-600"
+                                onClick={() => {
+                                  deleteTodo(item.id);
+                                }}
+                              />
+                            </div>
+                          </>
                         );
                       }
-                    })}
-                  {/* {filteredItems.length > 0 ? (
-                    filteredItems.map((item) => (
-                      <>
-                        <div
-                          key={item.id}
-                          className="flex items-center text-sm border-[1px] border-white rounded-sm mb-2 w-full px-5 py-2"
-                        >
-                          <div className="text-sm w-full flex flex-row space-x-5">
-                            <input type="checkbox" className="peer" />
-                            <div className="peer-checked:line-through peer-checked:text-green-500">
-                              <p className="font-bold">{item.userID}</p>
-                              <p className="font-bold">{item.todo}</p>
-                              <div>
-                                <p>{item.description}</p>
-                              </div>
-                            </div>
-                          </div>
-                          <GoPencil
-                            className="text-2xl cursor-pointer hover:text-yellow-500 m-2"
-                            onClick={() => {
-                              selectedTodo(item);
-                            }}
-                          />
-                          <CiTrash
-                            className="text-2xl cursor-pointer hover:text-red-600"
-                            onClick={() => {
-                              deleteTodo(item.id);
-                            }}
-                          />
-                        </div>
-                      </>
-                    ))
+                    })
                   ) : (
                     <div className="flex items-center justify-center w-full">
                       <i>No results found</i>
                     </div>
-                  )} */}
+                  )}
                 </div>
               </>
             ) : (
