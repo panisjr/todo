@@ -70,7 +70,7 @@ const Signup = ({ users, setUsers }) => {
           <div className="text-white ">
             <div className="flex items-center justify-center mb-10">
               <div className="pt-4">
-                <p className="text-[20px] font-bold">Sign Up</p>
+                <p className="text-[30px] font-bold">Sign Up</p>
               </div>
             </div>
             <div className="flex flex-col gap-5 py-5">
