@@ -48,16 +48,16 @@ const Signin = ({ users , setID}) => {
   return (
     <>
       <div className=" flex items-center justify-center bg-gradient-to-t from-slate-950 to-slate-800 w-screen h-screen">
-        <div className="flex items-center justify-center bg-gradient-to-t from-slate-900 to-slate-700 p-10 border-2 border-slate-600 rounded-md hover:shadow-lg hover:shadow-purple-400 hover:-x-6 duration-500">
+        <div className="flex items-center justify-center bg-gradient-to-t from-slate-900 to-slate-700 p-5 sm:p-10 border-2 border-slate-600 rounded-md hover:shadow-lg hover:shadow-purple-400 hover:-x-6 duration-500">
           <div className="text-white ">
             <div className="flex items-center justify-center mb-10">
-              <div className="pt-4">
-                <p className="text-[30px] font-bold">Sign In</p>
+              <div className="pt-2 sm:pt-4">
+                <p className="text-[20px] sm:text-[30px] font-bold">Sign In</p>
               </div>
             </div>
-            <div className="flex flex-col gap-5 py-5">
+            <div className="flex flex-col gap-5  py-2 sm:py-5">
               <div className="flex items-center justify-center ">
-                <CiUser className="mr-3 text-2xl" />
+                <CiUser className="mr-3 text-lg sm:text-2xl" />
 
                 <label
                   htmlFor="Username"
@@ -66,7 +66,7 @@ const Signin = ({ users , setID}) => {
                   <input
                     type="text"
                     id="Username"
-                    className="h-8 p-5 w-[250px] text-sm peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:ring-0 focus:outline-hidden"
+                    className="h-2 sm:h-8 p-5 w-[200px] sm:w-[250px] text-sm peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:ring-0 focus:outline-hidden"
                     placeholder="Username"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
@@ -79,7 +79,7 @@ const Signin = ({ users , setID}) => {
               {view === true ? (
                 <>
                   <div className="flex items-center justify-start">
-                    <CiLock className="mr-3 text-2xl" />
+                    <CiLock className="mr-3 text-lg sm:text-2xl" />
                     <label
                       htmlFor="Password"
                       className=" relative block rounded-md border border-gray-200 shadow-xs focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
@@ -87,7 +87,7 @@ const Signin = ({ users , setID}) => {
                       <input
                         type="text"
                         id="Password"
-                        className="h-8 p-5 w-[250px] text-sm peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:ring-0 focus:outline-hidden"
+                        className="h-2 sm:h-8 p-5 w-[200px] sm:w-[250px] text-sm peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:ring-0 focus:outline-hidden"
                         placeholder="Password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
@@ -105,7 +105,7 @@ const Signin = ({ users , setID}) => {
               ) : (
                 <>
                   <div className="flex items-center justify-start">
-                    <CiLock className="mr-3 text-2xl" />
+                    <CiLock className="mr-3 text-lg sm:text-2xl" />
                     <label
                       htmlFor="Password"
                       className=" relative block rounded-md border border-gray-200 shadow-xs focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
@@ -113,7 +113,7 @@ const Signin = ({ users , setID}) => {
                       <input
                         type="password"
                         id="Password"
-                        className="h-8 p-5 w-[250px] text-sm peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:ring-0 focus:outline-hidden"
+                        className="h-2 sm:h-8 p-5 w-[200px] sm:w-[250px] text-sm peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:ring-0 focus:outline-hidden"
                         placeholder="Password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
@@ -136,7 +136,7 @@ const Signin = ({ users , setID}) => {
                 </>
               )}
             </div>
-            <div className="flex items-center justify-center text-md gap-2">
+            <div className="flex items-center justify-center text-sm sm:text-md  gap-2">
               <p>Don't have an account? </p>
               <Link to={"/"}>Sign Up</Link>
             </div>

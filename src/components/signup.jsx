@@ -70,7 +70,7 @@ const Signup = ({ users, setUsers }) => {
           <div className="text-white">
             <div className="flex items-center justify-center mb-10">
               <div className="pt-2 sm:pt-4">
-                <p className="text-[20px] sm:text-[30px]  font-medium sm:font-semibold">Sign Up</p>
+                <p className="text-[20px] sm:text-[30px]  font-bold">Sign Up</p>
               </div>
             </div>
             <div className="flex flex-col gap-5 py-2 sm:py-5">
@@ -97,7 +97,7 @@ const Signup = ({ users, setUsers }) => {
               {view === true ? (
                 <>
                   <div className="flex items-center justify-start">
-                    <CiLock className="mr-3 text-2xl" />
+                    <CiLock className="mr-3 text-lg sm:text-2xl" />
                     <label
                       htmlFor="Password"
                       className=" relative block rounded-md border border-gray-200 shadow-xs focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
@@ -123,7 +123,7 @@ const Signup = ({ users, setUsers }) => {
               ) : (
                 <>
                   <div className="flex items-center justify-start">
-                    <CiLock className="mr-3 text-2xl" />
+                    <CiLock className="mr-3 text-lg sm:text-2xl" />
                     <label
                       htmlFor="Password"
                       className=" relative block rounded-md border border-gray-200 shadow-xs focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
