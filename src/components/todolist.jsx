@@ -190,9 +190,9 @@ const Todolist = ({ lists, setLists, users, userID }) => {
   return (
     <>
       <div className="flex items-center justify-center bg-gradient-to-t from-slate-950 to-slate-800 w-screen h-screen">
-        <div className=" flex items-center justify-center bg-gradient-to-t from-slate-900 to-slate-700 p-10 border-2 border-slate-600 rounded-md hover:shadow-lg hover:shadow-slate-400 hover:-x-6 duration-500">
+        <div className=" flex items-center justify-center bg-gradient-to-t from-slate-900 to-slate-700 p-3 sm:p-10 border-2 border-slate-600 rounded-md hover:shadow-lg hover:shadow-slate-400 hover:-x-6 duration-500">
           <div className="text-white ">
-            <div className="flex items-start justify-between w-full">
+            <div className="flex items-center justify-between w-80 sm:w-full">
               <div className="text-sm ">
                 <p className="items-start justify-start text-cyan-300">
                   {`${
@@ -202,19 +202,21 @@ const Todolist = ({ lists, setLists, users, userID }) => {
                 <p>{time}</p>
               </div>
               <IoIosLogOut
-                className="text-2xl hover:text-red-500 cursor-pointer items-start"
+                className="text-2xl hover:text-red-500 cursor-pointer items-center"
                 onClick={() => logout()}
               />
             </div>
-            <div className="flex items-center justify-between pb-3">
+            <div className="flex items-center justify-between pb-3 px-5 sm:px-0">
               <div className="pt-4">
-                <p className="text-4xl">Todo List</p>
-                <p className="text-sm pt-2">
+                <p className="text-2xl sm:text-4xl">Todo List</p>
+                <p className="text-xs sm:text-sm pt-2">
                   Get things done, one item at a time.
                 </p>
               </div>
             </div>
-            <div className="border-[1px] border-b-slate-300 "></div>
+            <div className="flex items-center justify-center">
+              <div className="border-[1px] border-b-slate-300 w-72 sm:w-full flex items-center "></div>
+            </div>
 
             {/* Content */}
             {lists.length > 0 ? (
@@ -240,7 +242,7 @@ const Todolist = ({ lists, setLists, users, userID }) => {
                               <div className="text-sm w-full flex flex-row space-x-5">
                                 <input type="checkbox" className="peer" />
                                 <div className="peer-checked:line-through peer-checked:text-green-500">
-                                  <p className="font-bold">{item.todo}</p>
+                                  <p className="font-semibold sm:font-bold">{item.todo}</p>
                                   <div>
                                     <p>{item.description}</p>
                                   </div>
@@ -272,9 +274,9 @@ const Todolist = ({ lists, setLists, users, userID }) => {
               </>
             ) : (
               <>
-                <div className="flex flex-col items-center justify-center py-10">
-                  <i className="pb-5">Time to chill! You have no todos.</i>
-                  <img className="w-20" src="/latte-art.png" alt="Latte" />
+                <div className="flex flex-col items-center justify-center py-5 sm:py-10">
+                  <i className="pb-5 text-xs sm:text-sm">Time to chill! You have no todos.</i>
+                  <img className="w-12 sm:w-20" src="/latte-art.png" alt="Latte" />
                 </div>
               </>
             )}
@@ -284,6 +286,7 @@ const Todolist = ({ lists, setLists, users, userID }) => {
               <div className="w-full flex gap-2">
                 {selected === true ? (
                   <>
+                  <div className="flex items-center ">
                     <label
                       htmlFor="Todo"
                       className=" relative block rounded-md border border-gray-200 shadow-xs focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
@@ -291,7 +294,7 @@ const Todolist = ({ lists, setLists, users, userID }) => {
                       <input
                         type="text"
                         id="Todo"
-                        className="h-8 p-3 w-[250px] text-sm peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:ring-0 focus:outline-hidden"
+                        className="h-2 sm:h-8 p-5 w-[235px] sm:w-[250px] text-sm peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:ring-0 focus:outline-hidden"
                         placeholder="Todo"
                         value={addTodo}
                         onChange={(e) => setAddTodo(e.target.value)}
@@ -301,19 +304,23 @@ const Todolist = ({ lists, setLists, users, userID }) => {
                         Title
                       </span>
                     </label>
-                    <button
-                      className="text-sm flex items-center justify-center gap-2 bg-green-500 p-2 rounded-md hover:bg-green-600 duration-300"
-                      onClick={() => update(addTodo, description)}
-                    >
-                      Update
-                      <IoMdCheckmark />
-                    </button>
-                    <button
-                      className="text-sm flex items-center justify-center bg-slate-900 p-2 gap-2 hover:bg-red-500 duration-300 rounded-md"
-                      onClick={() => cancelUpdate()}
-                    >
-                      Cancel <RxCross1 />
-                    </button>
+                  </div>
+
+                    <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
+                      <button
+                        className="text-xs sm:text-sm flex items-center justify-center gap-2 bg-green-500 p-2 rounded-md hover:bg-green-600 duration-300"
+                        onClick={() => update(addTodo, description)}
+                      >
+                        Update
+                        <IoMdCheckmark />
+                      </button>
+                      <button
+                        className="text-xs sm:text-sm flex items-center justify-center bg-slate-900 p-2 gap-2 hover:bg-red-500 duration-300 rounded-md"
+                        onClick={() => cancelUpdate()}
+                      >
+                        Cancel <RxCross1 />
+                      </button>
+                    </div>
                   </>
                 ) : (
                   <>
@@ -324,7 +331,7 @@ const Todolist = ({ lists, setLists, users, userID }) => {
                       <input
                         type="text"
                         id="Todo"
-                        className="h-8 p-3 w-[250px] text-sm peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:ring-0 focus:outline-hidden"
+                        className="h-2 sm:h-8 p-5 w-[235px] sm:w-[250px] text-sm peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:ring-0 focus:outline-hidden"
                         placeholder="Todo"
                         value={addTodo}
                         onChange={(e) => setAddTodo(e.target.value)}
@@ -335,11 +342,11 @@ const Todolist = ({ lists, setLists, users, userID }) => {
                       </span>
                     </label>
                     <button
-                      className="text-sm flex items-center justify-center gap-2 bg-slate-900 p-2 rounded-md hover:bg-blue-950 duration-300"
+                      className="text-xs sm:text-sm flex items-center justify-center gap-2 bg-slate-900 p-2 rounded-md hover:bg-blue-950 duration-300"
                       onClick={() => submit(addTodo, description)}
                     >
                       Add
-                      <GoPlus className="text-2xl" />
+                      <GoPlus className="text-lg sm:text-2xl" />
                     </button>
                   </>
                 )}
@@ -347,7 +354,7 @@ const Todolist = ({ lists, setLists, users, userID }) => {
               <textarea
                 type="text-area"
                 id="Todo"
-                className="w-full border-2 border-gray-200 h-20 p-3 text-sm text-black"
+                className="w-80 sm:w-full border-2 border-gray-200 h-20 p-3 text-xs sm:text-sm text-black"
                 placeholder="Add Description..."
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
