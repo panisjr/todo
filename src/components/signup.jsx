@@ -64,18 +64,18 @@ const Signup = ({ users, setUsers }) => {
   };
   return (
     <>
-      <div className="flex items-center justify-center bg-gradient-to-t from-slate-950 to-slate-800 w-screen h-screen p-4">
-        <div className="flex items-center justify-center bg-gradient-to-t from-slate-900 to-slate-700 p-10 border-2 border-slate-600 rounded-md hover:shadow-lg hover:shadow-cyan-400 hover:-x-6 duration-500">
-          <div className="bg" id="vanta"></div>
-          <div className="text-white ">
+      <div className="flex items-center justify-center bg-gradient-to-t from-slate-950 to-slate-800 w-screen h-screen p-4 lg:bg-blue-400">
+        <div className="flex items-center justify-center bg-gradient-to-t from-slate-900 to-slate-700 p-5 sm:p-10 border-2 border-slate-600 rounded-md hover:shadow-lg hover:shadow-cyan-400 hover:-x-6 duration-500">
+          <div className="bg" id="vanta"></div>  
+          <div className="text-white">
             <div className="flex items-center justify-center mb-10">
-              <div className="pt-4">
-                <p className="text-[30px] font-bold">Sign Up</p>
+              <div className="pt-2 sm:pt-4">
+                <p className="text-[20px] sm:text-[30px]  font-medium sm:font-semibold">Sign Up</p>
               </div>
             </div>
-            <div className="flex flex-col gap-5 py-5">
+            <div className="flex flex-col gap-5 py-2 sm:py-5">
               <div className="flex items-center justify-center ">
-                <CiUser className="mr-3 text-2xl" />
+                <CiUser className="mr-3 text-lg sm:text-2xl" />
 
                 <label
                   htmlFor="Username"
@@ -84,7 +84,7 @@ const Signup = ({ users, setUsers }) => {
                   <input
                     type="text"
                     id="Username"
-                    className="h-8 p-5 w-[250px] text-sm peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:ring-0 focus:outline-hidden"
+                    className="h-2 sm:h-8 p-5 w-[200px] sm:w-[250px] text-sm peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:ring-0 focus:outline-hidden"
                     placeholder="Username"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
@@ -105,7 +105,7 @@ const Signup = ({ users, setUsers }) => {
                       <input
                         type="text"
                         id="Password"
-                        className="h-8 p-5 w-[250px] text-sm peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:ring-0 focus:outline-hidden"
+                        className="h-2 sm:h-8 p-5 w-[200px] sm:w-[250px] text-sm peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:ring-0 focus:outline-hidden"
                         placeholder="Password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
@@ -131,9 +131,9 @@ const Signup = ({ users, setUsers }) => {
                       <input
                         type="password"
                         id="Password"
-                        className="h-8 p-5 w-[250px] text-sm peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:ring-0 focus:outline-hidden"
+                        className="h-2 sm:h-8 p-5 w-[200px] sm:w-[250px]  text-sm peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:ring-0 focus:outline-hidden"
                         placeholder="Password"
-                        value={password}
+                        value={password} 
                         onChange={(e) => setPassword(e.target.value)}
                       />
                       <span className="duration-300 pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-[#1c263a] p-0.5 text-xs text-white transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
@@ -141,7 +141,7 @@ const Signup = ({ users, setUsers }) => {
                       </span>
                     </label>
                     <FaRegEyeSlash
-                      className="ml-[-30px] cursor-pointer z-10"
+                      className="ml-[-30px] cursor-pointer z-10 relative block"
                       onClick={() => viewPass("unLock")}
                     />
                   </div>
@@ -154,7 +154,7 @@ const Signup = ({ users, setUsers }) => {
                 Sign Up
               </button>
             </div>
-            <div className="flex items-center justify-center text-md gap-2">
+            <div className="flex items-center justify-center text-sm sm:text-md gap-2">
               <p>Already have an account? </p>
               <Link to={"signIn"}>Sign In</Link>
             </div>
