@@ -5,6 +5,8 @@ import { RxCross1 } from "react-icons/rx";
 import Swal from "sweetalert2";
 import { CiTrash } from "react-icons/ci";
 import { useNavigate } from "react-router-dom";
+import Tiptap from "./tiptap";
+import GenerateText from "../ai/generateText";
 
 let id = 0;
 const Todolist = ({ lists, setLists, users, userID }) => {
@@ -359,6 +361,8 @@ const Todolist = ({ lists, setLists, users, userID }) => {
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
               />
+              <Tiptap/>
+              <GenerateText/>
             </div>
           </div>
         </div>
