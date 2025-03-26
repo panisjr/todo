@@ -27,7 +27,7 @@ const extensions = [
   }),
 ];
 
-const content = "<p>Hello World!</p>";
+const content = `<p>Hello World!</p>`;
 
 const Tiptap = () => {
   const editor = useEditor({
@@ -52,7 +52,7 @@ const Tiptap = () => {
     setLoading(true);
 
     try {
-        const response = await fetch('http://localhost:3001/generate', { // Correct URL
+        const response = await fetch('http://localhost:3001/generate', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -172,20 +172,6 @@ const Tiptap = () => {
           >
             <FaRegImages />
           </button>
-        </div>
-        <div>
-          <form onSubmit={handleSubmit}>
-            <textarea
-              className="text-black"
-              value={prompt}
-              onChange={(e) => setPrompt(e.target.value)}
-              placeholder="Enter your prompt"
-            />
-            <button type="submit" disabled={loading}>
-              {loading ? "Loading..." : "Generate"}
-            </button>
-          </form>
-          <div className="bg-white text-black h-52 w-52">Response: {result}</div>
         </div>
       </div>
       <EditorContent editor={editor} />

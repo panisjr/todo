@@ -189,6 +189,8 @@ const Todolist = ({ lists, setLists, users, userID }) => {
       }
     });
   };
+
+  const [openChat, setOpenChat] = useState(false);
   return (
     <>
       <div className="flex items-center justify-center bg-gradient-to-t from-slate-950 to-slate-800 w-screen h-screen">
@@ -215,6 +217,34 @@ const Todolist = ({ lists, setLists, users, userID }) => {
                   Get things done, one item at a time.
                 </p>
               </div>
+              <div className="">
+                {openChat ? (
+                  <>
+                    <button
+                      className="bg-white text-black rounded-md px-2"
+                      onClick={() => setOpenChat(false)}
+                    >
+                      close
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <img
+                      src="/images/aiIcon.png"
+                      alt="Chat Bot Icon"
+                      className="w-10 h-10 cursor-pointer hover:translate-y-[-5px] duration-300"
+                      onClick={() => setOpenChat(true)}
+                    />
+                  </>
+                )}
+              </div>
+              {openChat ? (
+                <>
+                  <GenerateText />
+                </>
+              ) : (
+                <></>
+              )}
             </div>
             <div className="flex items-center justify-center">
               <div className="border-[1px] border-b-slate-300 w-72 sm:w-full flex items-center "></div>
@@ -244,7 +274,9 @@ const Todolist = ({ lists, setLists, users, userID }) => {
                               <div className="text-sm w-full flex flex-row space-x-5">
                                 <input type="checkbox" className="peer" />
                                 <div className="peer-checked:line-through peer-checked:text-green-500">
-                                  <p className="font-semibold sm:font-bold">{item.todo}</p>
+                                  <p className="font-semibold sm:font-bold">
+                                    {item.todo}
+                                  </p>
                                   <div>
                                     <p>{item.description}</p>
                                   </div>
@@ -277,8 +309,14 @@ const Todolist = ({ lists, setLists, users, userID }) => {
             ) : (
               <>
                 <div className="flex flex-col items-center justify-center py-5 sm:py-10">
-                  <i className="pb-5 text-xs sm:text-sm">Time to chill! You have no todos.</i>
-                  <img className="w-12 sm:w-20" src="/latte-art.png" alt="Latte" />
+                  <i className="pb-5 text-xs sm:text-sm">
+                    Time to chill! You have no todos.
+                  </i>
+                  <img
+                    className="w-12 sm:w-20"
+                    src="/latte-art.png"
+                    alt="Latte"
+                  />
                 </div>
               </>
             )}
@@ -288,25 +326,25 @@ const Todolist = ({ lists, setLists, users, userID }) => {
               <div className="w-full flex gap-2">
                 {selected === true ? (
                   <>
-                  <div className="flex items-center ">
-                    <label
-                      htmlFor="Todo"
-                      className=" relative block rounded-md border border-gray-200 shadow-xs focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
-                    >
-                      <input
-                        type="text"
-                        id="Todo"
-                        className="h-2 sm:h-8 p-5 w-[235px] sm:w-[250px] text-sm peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:ring-0 focus:outline-hidden"
-                        placeholder="Todo"
-                        value={addTodo}
-                        onChange={(e) => setAddTodo(e.target.value)}
-                      />
+                    <div className="flex items-center ">
+                      <label
+                        htmlFor="Todo"
+                        className=" relative block rounded-md border border-gray-200 shadow-xs focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
+                      >
+                        <input
+                          type="text"
+                          id="Todo"
+                          className="h-2 sm:h-8 p-5 w-[235px] sm:w-[250px] text-sm peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:ring-0 focus:outline-hidden"
+                          placeholder="Todo"
+                          value={addTodo}
+                          onChange={(e) => setAddTodo(e.target.value)}
+                        />
 
-                      <span className="duration-300 pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-[#1a2437] p-0.5 text-sm text-white transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
-                        Title
-                      </span>
-                    </label>
-                  </div>
+                        <span className="duration-300 pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-[#1a2437] p-0.5 text-sm text-white transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
+                          Title
+                        </span>
+                      </label>
+                    </div>
 
                     <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
                       <button
@@ -361,8 +399,7 @@ const Todolist = ({ lists, setLists, users, userID }) => {
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
               />
-              <Tiptap/>
-              <GenerateText/>
+              <Tiptap />
             </div>
           </div>
         </div>
