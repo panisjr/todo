@@ -10,7 +10,7 @@ const GenerateText = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-   
+
     try {
       const response = await fetch("http://localhost:3001/generate", {
         method: "POST",
@@ -37,7 +37,11 @@ const GenerateText = () => {
   return (
     <>
       <div className="text-black mr-[-500px] mt-[1000px] absolute bottom-[50px] right-[600px] w-[400px] duration-300 transition-transform">
-        <img src="/images/aiIcon.png" alt="Chat Bot Icon" className="w-12 h-12" />
+        <img
+          src="/images/aiIcon.png"
+          alt="Chat Bot Icon"
+          className="w-12 h-12"
+        />
         <div className="bg-white w-full h-[400px] rounded-md mb-5 p-5">
           {result}
         </div>
@@ -54,14 +58,20 @@ const GenerateText = () => {
           <button type="submit" disabled={loading}>
             {loading ? (
               <>
-                <p className="bg-white px-5 py-2 rounded-md text-lg">
-                  Generating...
-                </p>
+                {/* <p className="bg-white px-5 py-2 rounded-md text-lg"> */}
+                <button type="button" class="bg-indigo-500 ..." disabled>
+                  <svg
+                    class="mr-3 size-5 animate-spin"
+                    viewBox="0 0 24 24"
+                  ></svg>
+                  Processing…
+                </button>
+                {/* </p> */}
               </>
             ) : (
               <>
                 <button className="bg-green-500 px-5 py-2 rounded-md text-white text-lg">
-                <CiLocationArrow1 className="text-2xl"/>
+                  <CiLocationArrow1 className="text-2xl" />
                 </button>
               </>
             )}

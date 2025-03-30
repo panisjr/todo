@@ -7,6 +7,7 @@ import { CiTrash } from "react-icons/ci";
 import { useNavigate } from "react-router-dom";
 import Tiptap from "./tiptap";
 import GenerateText from "../ai/generateText";
+import QuillText from "./QuillText";
 
 let id = 0;
 const Todolist = ({ lists, setLists, users, userID }) => {
@@ -399,9 +400,10 @@ const Todolist = ({ lists, setLists, users, userID }) => {
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
               />
-              <Tiptap />
+              {/* <Tiptap /> */}
             </div>
           </div>
+              {/* <QuillText/>   */}
         </div>
       </div>
     </>
